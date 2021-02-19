@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "efiling", "efiling\efiling.csproj", "{D2E2300A-4C49-4063-9088-2AA88AFB4D68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "texgen", "texgen\texgen.csproj", "{EC209B04-D0AF-485B-AB71-885565A58D46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC209B04-D0AF-485B-AB71-885565A58D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC209B04-D0AF-485B-AB71-885565A58D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC209B04-D0AF-485B-AB71-885565A58D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC209B04-D0AF-485B-AB71-885565A58D46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

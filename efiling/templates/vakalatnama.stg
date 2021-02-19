@@ -1,0 +1,80 @@
+
+
+textVakalatnama(court, advocate, petitionType) ::= <%
+% Text of Vakalatnama
+\section{Vakalatnama}\label{sec:vakalatnama}
+
+(S.C.R.\ Order IV, Rule 18) \\
+\textsc{In the \crt} \\
+Appellate/Original Jurisdiction
+
+
+\begin{center}
+  Suit/Appeal No of Petition/Reference Plaintiff \ptntype{} \shortcasenumber{}
+
+  \parties{}
+\end{center}
+
+
+I, \clntdtls{} do hereby appoint and retain \fulladv, Advocate of the \crt{} to act and appear for us in the above Suit/Appeal/Petition/Reference and on our behalf to conduct and prosecute (or defend) the same and all proceedings that may be taken in respect of any application connected with the same or any decree or order passed therein, and to file application for Review, to file and obtain return of documents, and to deposit and receive money in our behalf in the said Appeal/Petition Reference and in applications for Review, and to represent us and to take all necessary steps on our behalf in the above matter. We agree to ratify all acts done by the aforesaid Advocate in pursuance of this authority.
+
+Dated this day of 
+%>
+
+textMemoAppearance() ::= <%
+% Memo of appearance
+\section{Memo of Appearance}\label{sec:memo-of-appearance}
+\casetitle{}
+
+\inmatterof{}
+
+
+
+To, \\
+The Registrar, \\
+\crt{}, \\
+New Delhi,
+
+Sir,
+
+Please enter my appearance on behalf of the respondent \respndt{} in the above-mentioned case.
+
+New Delhi,\\
+Yours faithfully,\\
+\vspace{4ex}
+\adv{}
+
+Advocate for the respondent \fulladv{} \\
+Contact Details are in the accompanying Vakalatnama
+%>
+
+main(petitioner, 
+     court,
+     respondent, 
+     jurisdiction,
+     typePetition,
+     case,
+     advocate,
+     client) ::= <%
+\documentclass{vakalatnama}
+\newcommand{\pnp}{Test Solicitor}
+\newcommand{\dhc}{Delhi High Court}
+\newcommand{\sci}{Supreme Court of India}
+
+\begin{document}
+
+\petitioner{Test Petitioner}
+\court{Supreme Court Of India}
+\respondent{State of Uttar Pradesh and Others}
+\jurisdiction{Criminal Appellate Jurisdiction}
+\petitiontype{SLP (Civil)}
+\caseNumbers{1152}{2000}
+\advocate{\pnp}
+\clientdetails{Test Petitioner}
+
+\mktitle
+\input{vakalatnama.tex}
+\input{memoappearance.tex}
+
+\end{document} 
+%>
