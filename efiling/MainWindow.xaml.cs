@@ -1,25 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using efiling.libs;
+using efiling.model;
 
 namespace efiling {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow {
         public MainWindow() {
             InitializeComponent();
+        }
+
+        private void btnGenerate_Click(object sender, RoutedEventArgs e) {
+            TxtBlkOutputMessage.Text = "Generating output...";
+
+           var addrAdv = new Address(TxtAdvAddr1.Text,
+                                      TxtAdvAddr2.Text,
+                                      TxtAdvAddr3.Text,
+                                      TxtAdvCity.Text,
+                                      TxtAdvDistrict.Text,
+                                      CmbAdvState.Text,
+                                      int.Parse(TxtAdvPinCode.Text));
+            var advocate = new Person(TxtAdvLName.Text,
+                                      TxtAdvFName.Text,
+                                      TxtAdvTitle.Text,
+                                      addrAdv);
+
+            var addrResp = new Address(TxtCltAddr1.Text,
+                                       TxtCltAddr2.Text,
+                                       TxtCltAddr3.Text,
+                                       TxtCltCity.Text,
+                                       TxtCltDistrict.Text,
+                                       CmbCltState.Text,
+                                       int.Parse(TxtCltPinCode.Text));
+            var respondent = new Person(TxtCltLName.Text,
+                                        TxtCltFName.Text,
+                                        TxtCltTitle.Text,
+                                        addrResp);
+
+            var caseDetails = new CaseDetails(TxtCaseType.Text,
+                                              TxtCaseNo1.Text,
+                                              TxtCaseNo2.Text,
+                                              DtFilingDate.SelectedDate.GetValueOrDefault(),
+                                              CmbCtName.Text,
+                                              TxtPetitioner.Text,
+                                              TxtJurisdiction.Text);
+            var data = new Data(advocate, respondent, caseDetails);
+
+            var task = Task.Run(() => Generators.generatePdf(data));
+            var outputPath = task.Result;
+
+            var message = string.IsNullOrWhiteSpace(outputPath) ? 
+                              "Error generating file" : 
+                              $"File written to:\n{outputPath}";
+
+            TxtBlkOutputMessage.Text = message;
+
+            if (string.IsNullOrWhiteSpace(outputPath)) return;
+            
+            // Try to open the file in default viewer
+            try {
+                var p = new Process {StartInfo = new ProcessStartInfo(outputPath) {UseShellExecute = true}};
+                p.Start();
+            } catch (Exception exception) {
+                Console.WriteLine(exception);
+            }
         }
     }
 }

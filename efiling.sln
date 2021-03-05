@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "efiling", "efiling\efiling.csproj", "{D2E2300A-4C49-4063-9088-2AA88AFB4D68}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "efiling", "efiling\efiling.csproj", "{D2E2300A-4C49-4063-9088-2AA88AFB4D68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "texgen", "texgen\texgen.csproj", "{EC209B04-D0AF-485B-AB71-885565A58D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testefiling", "testefiling\testefiling.csproj", "{816139C4-9950-425C-AF66-1A7C9E06828D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +17,15 @@ Global
 		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2E2300A-4C49-4063-9088-2AA88AFB4D68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC209B04-D0AF-485B-AB71-885565A58D46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC209B04-D0AF-485B-AB71-885565A58D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC209B04-D0AF-485B-AB71-885565A58D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC209B04-D0AF-485B-AB71-885565A58D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{816139C4-9950-425C-AF66-1A7C9E06828D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816139C4-9950-425C-AF66-1A7C9E06828D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{816139C4-9950-425C-AF66-1A7C9E06828D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{816139C4-9950-425C-AF66-1A7C9E06828D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEB597C2-7279-45CD-BF24-4381197BFAF2}
 	EndGlobalSection
 EndGlobal
