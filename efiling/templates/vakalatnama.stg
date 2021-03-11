@@ -1,80 +1,215 @@
+getFullName(person) ::= <%<person.FirstName> <person.LastName>%>
 
+getFullCaseNumber(caseDetails) ::= <%<caseDetails.CaseNumberPart1> of <caseDetails.CaseNumberPart2>%>
+getShortCaseNumbr(caseDetails) ::= <%<caseDetails.CaseNumberPart1>/<caseDetails.CaseNumberPart2>%>
 
-textVakalatnama(court, advocate, petitionType) ::= <%
+// Note the <% and %>, this ignores indentations and new lines
+getSingleAddressLine(address) ::= <%
+<address.Line1>, 
+<if(Line2)>Line2, <endif>
+<if(Line3)>Line3, <endif>
+<address.City>, 
+ <if(District)>District, <endif>
+<address.State> -- <address.PinCode>
+%>
+
+// Note the <% and %>, this ignores indentations and new lines
+getSingleLinePersonDetails(person) ::= <%
+<getFullName(person)>, <person.OrgTitle>, at <getSingleAddressLine(person.Address)>
+%>
+
+getMultiLineAddress(address) ::= <<
+<address.Line1>, \\\\
+<if(Line2)>Line2, \\\\<endif>
+<if(Line3)>Line3, \\\\<endif>
+<address.City>, \\\\
+ <if(District)>District, \\\\<endif>
+<address.State> -- <address.PinCode>
+>>
+
+getMultilinePersonDetails(person) ::= <%
+<getFullName(person)>, \\\\
+<person.OrgTitle>, \\\\
+<getMultiLineAddress(person.Address)>
+%>
+
+getCaseTitle(caseDetails) ::= <<
+{
+\centering
+    \textsc{In the <caseDetails.CourtName>} \\\\
+    \textsc{<caseDetails.Jurisdiction>} \\\\
+    \textsc{<caseDetails.CaseType> <getFullCaseNumber(caseDetails)>} \\\\
+\par
+}
+>>
+
+getInMatterOf(data) ::= <<
+\begin{tabular}{l c r}
+    \multicolumn{3}{l}{\underline{\textsc{In the matter of:}}}  \tabularnewline
+    \tabularnewline
+    <data.CaseDetails.Petitioner> & \ldots & Petitioner \\\\* %\tabularnewline
+    \multicolumn{3}{c}{-- \textsc{versus} --} \tabularnewline
+    <getFullName(data.Respondent)>     & \ldots & Respondent \tabularnewline
+\end{tabular}
+>>
+
+getParties(data) ::= <<
+{\centering
+    \begin{tabular}{l c r}
+    <data.CaseDetails.Petitioner> & \ldots & Appellant/Petitioner \tabularnewline
+    \multicolumn{3}{c}{-- \textsc{Between/And} --} \tabularnewline
+    <getFullName(data.Respondent)> & \ldots & Defendant/Respondent/Opposite Party \tabularnewline
+    \end{tabular}
+\par}
+>>
+
+textVakalatnama(data, caseDetails, advocate, petitionType) ::= <<
 % Text of Vakalatnama
 \section{Vakalatnama}\label{sec:vakalatnama}
 
-(S.C.R.\ Order IV, Rule 18) \\
-\textsc{In the \crt} \\
+(S.C.R.\ Order IV, Rule 18) \\\\
+\textsc{In the <caseDetails.CourtName>} \\\\
 Appellate/Original Jurisdiction
 
 
 \begin{center}
-  Suit/Appeal No of Petition/Reference Plaintiff \ptntype{} \shortcasenumber{}
+  Suit/Appeal No of Petition/Reference Plaintiff <caseDetails.CaseType> <getShortCaseNumbr(caseDetails)>
 
-  \parties{}
+  <getParties(data)>
 \end{center}
 
 
-I, \clntdtls{} do hereby appoint and retain \fulladv, Advocate of the \crt{} to act and appear for us in the above Suit/Appeal/Petition/Reference and on our behalf to conduct and prosecute (or defend) the same and all proceedings that may be taken in respect of any application connected with the same or any decree or order passed therein, and to file application for Review, to file and obtain return of documents, and to deposit and receive money in our behalf in the said Appeal/Petition Reference and in applications for Review, and to represent us and to take all necessary steps on our behalf in the above matter. We agree to ratify all acts done by the aforesaid Advocate in pursuance of this authority.
+I, <getSingleLinePersonDetails(data.Respondent)> do hereby appoint and retain <getFullName(advocate)>, Advocate of the 
+<caseDetails.CourtName> to act and appear for us in the above Suit/Appeal/Petition/Reference and on our behalf to conduct 
+and prosecute (or defend) the same and all proceedings that may be taken in respect of any application connected with the 
+same or any decree or order passed therein, and to file application for Review, to file and obtain return of documents, 
+and to deposit and receive money in our behalf in the said Appeal/Petition Reference and in applications for Review, 
+and to represent us and to take all necessary steps on our behalf in the above matter. We agree to ratify all acts done 
+by the aforesaid Advocate in pursuance of this authority.
 
-Dated this day of 
-%>
+Dated this day of <caseDetails.FilingDate>
+>>
 
-textMemoAppearance() ::= <%
+textMemoAppearance(data) ::= <<
 % Memo of appearance
 \section{Memo of Appearance}\label{sec:memo-of-appearance}
-\casetitle{}
+<getCaseTitle(data.CaseDetails)>
 
-\inmatterof{}
+<getInMatterOf(data)>
 
-
-
-To, \\
-The Registrar, \\
-\crt{}, \\
+To, \\\\
+The Registrar, \\\\
+<data.CaseDetails.CourtName>, \\\\
 New Delhi,
 
 Sir,
 
-Please enter my appearance on behalf of the respondent \respndt{} in the above-mentioned case.
+Please enter my appearance on behalf of the respondent <getFullName(data.Respondent)> in the above-mentioned case.
 
-New Delhi,\\
-Yours faithfully,\\
+New Delhi,\\\\
+Yours faithfully,\\\\
 \vspace{4ex}
-\adv{}
+<getFullName(data.Advocate)>
 
-Advocate for the respondent \fulladv{} \\
+Advocate for the respondent <getFullName(data.Advocate)> \\\\
 Contact Details are in the accompanying Vakalatnama
-%>
+>>
 
-main(petitioner, 
-     court,
-     respondent, 
-     jurisdiction,
-     typePetition,
-     case,
-     advocate,
-     client) ::= <%
-\documentclass{vakalatnama}
+headers(data) ::= <<
+% Preamble
+\documentclass[14pt, titlepage]{article}
+
+% Packages
+\usepackage{xparse}
+\usepackage[driver=xetex,
+            a4paper,
+            noheadfoot,
+            includeheadfoot,
+            nomarginpar,
+            top=1.5in,
+            bottom=1.5in,
+            left=1.75in,
+            right=1.0in]{geometry}
+\usepackage{xunicode}
+
+% Set font to Times New Roman
+\usepackage{fontspec}
+
+\setmainfont{Times New Roman}
+% line spacing = 1.5
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage[parfill]{parskip}
+
+% Format section title to have numbers in Table of Contents, but not in document
+\newcommand{\secpagebreak}{}
+\usepackage{titlesec}
+\titleformat{\section}{\center \normalfont \bfseries}{}{0pt}{\secpagebreak}
+
+% Format Table of Contents
+\usepackage{etoc}
+\newcommand{\titleoftoc}{\textsc{Index}}
+\newcommand{\mktoc}{% Cover page
+    \begin{center}
+        \etocsetstyle{section}
+                     {}
+                     {\etociffirst{ \\\\ \hline}{\\\\\hline}}
+                     %should be \etocnumber & \etocname & \etocnumber but I can't get the page numbering correct
+                     {\etocnumber & \etocname & \etocnumber }
+                     {}
+        \etocsettocstyle{\hypersetup{hidelinks}
+                         \begin{tabular}{|c|l|c|}
+                            \multicolumn{3}{c}{\titleoftoc} \\\\
+                            \hline
+                            \multicolumn{1}{|c|}{\bfseries Si No} & {\bfseries Particulars} & {\bfseries Page}}
+                        {\\\\ \hline \end{tabular}}
+        
+        \etocglobaldefs
+        \etocsetnexttocdepth{1}
+        \tableofcontents
+    \end{center}
+}
+
+% Make entries in the index table as links
+\usepackage[linktocpage=true]{hyperref}
+
+\newcommand {\mktitle}{
+    % Cover page
+    \thispagestyle{empty}
+    <getCaseTitle(data.CaseDetails)>
+    
+    <getInMatterOf(data)>
+    
+    \vspace*{2em} %\tableofcontents
+    \mktoc
+    \vspace*{3em}
+    \textbf{Advocate for the Respondent: <getFullName(data.Advocate)>}
+    
+    %
+    
+    % Break after each section
+    \renewcommand{\secpagebreak}{\clearpage}
+    
+    %% Set page number and section numbering
+    \setcounter{section}{0}
+    \setcounter{page}{0}
+}
+
+>>
+
+main(data) ::= <<
+<headers(data)>
 \newcommand{\pnp}{Test Solicitor}
 \newcommand{\dhc}{Delhi High Court}
 \newcommand{\sci}{Supreme Court of India}
 
 \begin{document}
 
-\petitioner{Test Petitioner}
-\court{Supreme Court Of India}
-\respondent{State of Uttar Pradesh and Others}
-\jurisdiction{Criminal Appellate Jurisdiction}
-\petitiontype{SLP (Civil)}
-\caseNumbers{1152}{2000}
-\advocate{\pnp}
-\clientdetails{Test Petitioner}
-
 \mktitle
-\input{vakalatnama.tex}
-\input{memoappearance.tex}
+
+<textVakalatnama(data, data.CaseDetails, data.Advocate, data.CaseDetails.CaseType)>
+
+<textMemoAppearance(data)>
 
 \end{document} 
-%>
+>>

@@ -1,12 +1,240 @@
-﻿<Window x:Class="efiling.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:efiling"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="Vakalatnama"
+    x:Class="efiling.MainWindow"
+    mc:Ignorable="d"
+    Title="Vakalatnama" Margin="1,1,1,1">
 
-    </Grid>
+    <Window.Resources>
+        <XmlDataProvider x:Key="States" Source="/Properties/states.xml" XPath="States/State" />
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="230" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="IsTabStop" Value="True" />
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Width" Value="230" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsSynchronizedWithCurrentItem" Value="False" />
+            <Setter Property="IsTabStop" Value="True" />
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="IsEnabled" Value="False" />
+            <Setter Property="IsTabStop" Value="False" />
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Orientation="Vertical" Background="#FF87F5C3">
+                <Label x:Name="LblAdvDetails" Content="Advocate Details" Height="37"
+                       Width="410" Background="#FFC4CF95" IsEnabled="False" FontFamily="Arial Black" FontSize="24"
+                       FontStretch="UltraExpanded" FontWeight="Bold" HorizontalContentAlignment="Center" />
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvTitle" Content="Title" />
+                    <TextBox x:Name="TxtAdvTitle" TabIndex="0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvFName" Content="First Name" />
+                    <TextBox x:Name="TxtAdvFName" TabIndex="1" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvLName" Content="Last Name" />
+                    <TextBox x:Name="TxtAdvLName" TabIndex="2" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvAddr1" Content="Line 1" />
+                    <TextBox x:Name="TxtAdvAddr1" TabIndex="3"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvAddr2" Content="Line 2" />
+                    <TextBox x:Name="TxtAdvAddr2" TabIndex="4" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvAddr3" Content="Line 3" />
+                    <TextBox x:Name="TxtAdvAddr3" TabIndex="5" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvCity" Content="City" />
+                    <TextBox x:Name="TxtAdvCity" TabIndex="6"  AutomationProperties.HelpText="District" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvDistrict" Content="District" />
+                    <TextBox x:Name="TxtAdvDistrict" TabIndex="7" AutomationProperties.HelpText="District" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvState" Content="State" />
+                    <ComboBox x:Name="CmbAdvState"
+                              SelectedIndex="9"
+                              DisplayMemberPath="@Name"
+                              SelectedValuePath="@Name"
+                              ItemsSource="{Binding Source={StaticResource States}}" 
+                              TabIndex="8" />
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblAdvPinCode" Content="PIN Code" />
+                    <TextBox x:Name="TxtAdvPinCode" TabIndex="9"  AutomationProperties.HelpText="Pin Code" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Background="#FF88931F">
+                <Label x:Name="LblCltDetails" Content="Client Details"
+                       Height="{Binding Height, ElementName=LblAdvDetails}"
+                       Width="{Binding Width, ElementName=LblAdvDetails}"
+                       Background="#FFA4E4D5"
+                       IsEnabled="False"
+                       FontFamily="{Binding FontFamily, ElementName=LblAdvDetails}"
+                       FontSize="{Binding FontSize, ElementName=LblAdvDetails}"
+                       FontStretch="{Binding FontStretch, ElementName=LblAdvDetails}"
+                       FontWeight="{Binding FontWeight, ElementName=LblAdvDetails}"
+                       HorizontalContentAlignment="Center" />
+
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltTitle" Content="Title" />
+                    <TextBox x:Name="TxtCltTitle" TabIndex="10" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltFName" Content="First Name" />
+                    <TextBox x:Name="TxtCltFName" TabIndex="11" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltLName" Content="Last Name" />
+                    <TextBox x:Name="TxtCltLName" TabIndex="12" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltAddr1" Content="Line 1" />
+                    <TextBox x:Name="TxtCltAddr1" TabIndex="13"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltAddr2" Content="Line 2" />
+                    <TextBox x:Name="TxtCltAddr2" TabIndex="14" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltAddr3" Content="Line 3" />
+                    <TextBox x:Name="TxtCltAddr3" TabIndex="15" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltCity" Content="City" />
+                    <TextBox x:Name="TxtCltCity" TabIndex="16"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltDistrict" Content="District" />
+                    <TextBox x:Name="TxtCltDistrict" TabIndex="17"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltState" Content="State" />
+                    <ComboBox x:Name="CmbCltState"
+                              SelectedIndex="0"
+                              DisplayMemberPath="@Name"
+                              SelectedValuePath="@Name"
+                              ItemsSource="{Binding Source={StaticResource States}}"
+                              TabIndex="18" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCltPinCode" Content="PIN Code" />
+                    <TextBox x:Name="TxtCltPinCode" TabIndex="19"  />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Background="#FFB1DFE6">
+                <Label x:Name="LblCaseDetails" Content="Case Details"
+                       Height="{Binding Height, ElementName=LblAdvDetails}"
+                       Width="{Binding Width, ElementName=LblAdvDetails}"
+                       Background="#FFA4E4D5"
+                       IsEnabled="False"
+                       FontFamily="{Binding FontFamily, ElementName=LblAdvDetails}"
+                       FontSize="{Binding FontSize, ElementName=LblAdvDetails}"
+                       FontStretch="{Binding FontStretch, ElementName=LblAdvDetails}"
+                       FontWeight="{Binding FontWeight, ElementName=LblAdvDetails}"
+                       HorizontalContentAlignment="Center" />
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCtName" Content="Court" />
+                    <ComboBox x:Name="CmbCtName" Height="28" AllowDrop="True" IsReadOnly="True" TabIndex="20" >
+                        <ComboBoxItem Content="Supreme Court Of India" IsSelected="True" />
+                        <ComboBoxItem Content="Delhi High Court" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblJurisdiction" Content="Jurisdiction" />
+                    <TextBox x:Name="TxtJurisdiction" TabIndex="21" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCaseType" Content="Case Type" />
+                    <TextBox x:Name="TxtCaseType"
+                             AutomationProperties.HelpText="Case Type"
+                             ToolTip="Case Type (Writ, SLP etc)" 
+                             TabIndex="22"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblCaseNo1" Content="Case No." />
+                    <TextBox x:Name="TxtCaseNo1" Width="75" TabIndex="23" />
+
+                    <Label x:Name="LblCaseNo2" Content="Of" Width="30" />
+                    <TextBox x:Name="TxtCaseNo2" Width="75" TabIndex="24" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblFilingDate" Content="Filing Date" />
+                    <DatePicker x:Name="DtFilingDate" FirstDayOfWeek="Monday"
+                                SelectedDateFormat="Long"
+                                ToolTip="Select filing date of the case"
+                                DisplayDate="2021-03-04"
+                                Height="28" 
+                                TabIndex="25" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblPetitioner" Content="Petitioner" />
+                    <TextBox x:Name="TxtPetitioner" TabIndex="26" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LblRespondent" Content="Respondent" />
+                    <TextBox x:Name="TxtRespondent" TabIndex="27" />
+                </StackPanel>
+
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="BtnGenerate" Content="Generate"
+                    IsDefault="True" Click="btnGenerate_Click" Height="70" Width="142" TabIndex="28"  IsTabStop="True"/>
+            <TextBox x:Name="TxtBlkOutputMessage" Height="70" Width="1068" Margin="15,0,0,0" IsReadOnly="True" />
+        </StackPanel>
+
+    </StackPanel>
+
 </Window>

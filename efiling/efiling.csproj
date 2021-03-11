@@ -1,13 +1,56 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
+        <StartupObject>efiling.App</StartupObject>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Description>Generates PDF file rendered in XeLaTeX for vakalatnama etc</Description>
+        <Copyright>Creative Commons</Copyright>
+        <PackageProjectUrl>https://github.com/pndv/efiling</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/pndv/efiling</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Authors>Parmanand Pandey</Authors>
+        <Company>NA</Company>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="StringTemplate4" Version="4.0.8" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Properties\states.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <EmbeddedResource Include="templates\vakalatnama.stg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Properties\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Properties\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>
