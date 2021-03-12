@@ -15,7 +15,7 @@ namespace efiling {
             InitializeComponent();
         }
 
-        private void btnGenerate_Click(object sender, RoutedEventArgs e) {
+        private async void btnGenerate_Click(object sender, RoutedEventArgs e) {
             TxtBlkOutputMessage.Text = "Generating output...";
 
            var addrAdv = new Address(TxtAdvAddr1.Text,
@@ -52,7 +52,7 @@ namespace efiling {
             var data = new Data(advocate, respondent, caseDetails);
 
             var task = Task.Run(() => Generators.generatePdf(data));
-            var outputPath = task.Result;
+            var outputPath = await task;
 
             var message = string.IsNullOrWhiteSpace(outputPath) ? 
                               "Error generating file" : 

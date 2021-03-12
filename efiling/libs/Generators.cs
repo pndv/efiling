@@ -11,7 +11,7 @@ namespace efiling.libs {
         private const string templateFile = "efiling.templates.vakalatnama.stg";
         private static readonly string outputFileRelativePath = "out" + Path.DirectorySeparatorChar + "file.pdf";
 
-        public static String generatePdf(Data data) {
+        public static string generatePdf(Data data) {
             generateTeX(data);
 
             Console.Out.WriteLine("Compiling TeX file");
