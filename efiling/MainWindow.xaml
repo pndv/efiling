@@ -9,7 +9,7 @@
     Title="Vakalatnama" Margin="1,1,1,1">
 
     <Window.Resources>
-        <XmlDataProvider x:Key="States" Source="/Properties/states.xml" XPath="States/State" />
+        <XmlDataProvider x:Key="States" Source="resources\states.xml" XPath="States/State" />
         <Style TargetType="{x:Type StackPanel}">
             <Setter Property="Margin" Value="5,5,5,5" />
         </Style>
@@ -45,7 +45,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="LblAdvTitle" Content="Title" />
-                    <TextBox x:Name="TxtAdvTitle" TabIndex="0" />
+                    <TextBox x:Name="TxtAdvTitle" TabIndex="0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="LblAdvFName" Content="First Name" />

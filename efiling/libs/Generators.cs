@@ -2,27 +2,46 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 using Antlr4.StringTemplate;
 using efiling.model;
 
 namespace efiling.libs {
     public class Generators {
-        private const string fName = "file.tex";
-        private const string templateFile = "efiling.templates.vakalatnama.stg";
-        private static readonly string outputFileRelativePath = "out" + Path.DirectorySeparatorChar + "file.pdf";
+        private const string templateFile = "efiling.resources.vakalatnama.stg";
+        private const string outputDir = "out";
+        private const string emptyStream = "The embedded template could be read";
 
-        public static string generatePdf(Data data) {
-            generateTeX(data);
+        private static readonly string fName = outputDir + Path.DirectorySeparatorChar + "file.tex";
+        private static readonly string outputFileRelativePath = outputDir + Path.DirectorySeparatorChar + "file.pdf";
+
+        private static async void updateTextBox(TextBox? outputBox, string message) {
+            if (outputBox == null) return;
+            await Application.Current.Dispatcher.InvokeAsync(() => outputBox.Text += $"\n{message}");
+        }
+
+        public static string generatePdf(Data data, TextBox? outputBox = null) {
+            if (!Directory.Exists(outputDir)) {
+                updateTextBox(outputBox, "Creating output directory");
+                Directory.CreateDirectory(outputDir);
+            }
+
+            updateTextBox(outputBox, "Generating TeX file");
+            generateTeX(data, outputBox);
 
             Console.Out.WriteLine("Compiling TeX file");
+            updateTextBox(outputBox, "Compiling TeX file");
             return compileTex(fName, 3); //Compile thrice to fully generate indices
         }
 
-        private static void generateTeX(Data data) {
+        private static void generateTeX(Data data, TextBox? outputBox) {
             string strTemplate;
             using (var templateStream = typeof(Generators).Assembly.GetManifestResourceStream(templateFile)) {
                 if (templateStream == null) {
-                    const string emptyStream = "The embedded template could be read";
+                    updateTextBox(outputBox, emptyStream);
                     Console.Error.WriteLine(emptyStream);
                     return;
                 }

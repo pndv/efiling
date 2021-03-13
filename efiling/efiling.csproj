@@ -16,6 +16,10 @@
         <Authors>Parmanand Pandey</Authors>
         <Company>NA</Company>
         <Platforms>AnyCPU;x64</Platforms>
+        <PackageTags>vakalatnama;formatting</PackageTags>
+        <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+		<PublishSingleFile>true</PublishSingleFile>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +36,7 @@
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       <PlatformTarget>x64</PlatformTarget>
+      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
 
     <ItemGroup>
@@ -39,11 +44,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="Properties\states.xml">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Resource Include="resources\states.xml">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
-      <EmbeddedResource Include="templates\vakalatnama.stg">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <None Remove="resources\vakalatnama.stg" />
+      <EmbeddedResource Include="resources\vakalatnama.stg">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </EmbeddedResource>
     </ItemGroup>
 

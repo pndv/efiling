@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 using efiling.libs;
 using efiling.model;
 
@@ -16,7 +15,7 @@ namespace efiling {
         }
 
         private async void btnGenerate_Click(object sender, RoutedEventArgs e) {
-            TxtBlkOutputMessage.Text = "Generating output...";
+           TxtBlkOutputMessage.Text = "Generating output...";
 
            var addrAdv = new Address(TxtAdvAddr1.Text,
                                       TxtAdvAddr2.Text,
@@ -51,7 +50,7 @@ namespace efiling {
                                               TxtJurisdiction.Text);
             var data = new Data(advocate, respondent, caseDetails);
 
-            var task = Task.Run(() => Generators.generatePdf(data));
+            var task = Task.Run(() => Generators.generatePdf(data, TxtBlkOutputMessage));
             var outputPath = await task;
 
             var message = string.IsNullOrWhiteSpace(outputPath) ? 
@@ -67,8 +66,10 @@ namespace efiling {
                 var p = new Process {StartInfo = new ProcessStartInfo(outputPath) {UseShellExecute = true}};
                 p.Start();
             } catch (Exception exception) {
-                Console.WriteLine(exception);
+                MessageBox.Show(exception.StackTrace);
             }
         }
+
+        
     }
 }
