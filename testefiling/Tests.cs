@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace testefiling {
     public class Tests {
+        private static readonly string relativeFilePath = $"out{Path.DirectorySeparatorChar}file.pdf";
+
         private static readonly Address advAddress = new("123 Christie St.",
                                                          "Apt 1",
                                                          "Ste 300",
@@ -45,17 +47,19 @@ namespace testefiling {
                                                 client,
                                                 details);
 
-        [Test]
+        [Test, Order(0)]
         public void generatePdf() {
             var output = Generators.generatePdf(data);
 
-            Assert.AreEqual(0, output);
+            Assert.NotNull(output);
+            Assert.IsNotEmpty(output);
+            Assert.IsTrue(output.Contains(relativeFilePath));
         }
 
-        [Test]
+        [Test, Ignore("This is used for testing on windows application with a installed PDF viewer. Not for GitHub")]
         public void testOpenPdf() {
             var outputPath = "out" + Path.DirectorySeparatorChar + "file.pdf";
-            
+
             // Try to open the file in default viewer
             try {
                 var p = new Process {StartInfo = new ProcessStartInfo(outputPath) {UseShellExecute = true}};

@@ -15,10 +15,7 @@
         <PackageReference Include="nunit" Version="3.13.1" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\efiling\efiling.csproj" />
+        <ProjectReference Include="..\efiling\efiling.csproj"/>
     </ItemGroup>
 
 </Project>
