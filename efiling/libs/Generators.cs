@@ -92,7 +92,7 @@ namespace efiling.libs {
                 if (exitCode == 0 || i < compileCount) continue;
 
                 Console.Error.WriteLine("Error creating pdf file");
-                // Console.Error.WriteLine(error);
+                Console.Error.WriteLine(error);
                 Console.WriteLine(output);
                 return "";
             }

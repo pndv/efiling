@@ -8,3 +8,4 @@ riderModule.iml
 **/.run/
 global.json
 efiling.sln.DotSettings.user
+**/publish/
