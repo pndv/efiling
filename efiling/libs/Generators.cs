@@ -67,7 +67,7 @@ namespace efiling.libs {
                     FileName = exeFilePath,
                     Arguments = "-verbose file-line-error -interaction=nonstopmode -synctex=1 -enable-installer " +
                                 $"-output-directory={outputDir} -aux-directory={outputDir} {fullTexFilePath}",
-                    UseShellExecute = false,
+                    UseShellExecute = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
@@ -83,8 +83,9 @@ namespace efiling.libs {
                 }
 
                 var output = pProcess.StandardOutput.ReadToEnd();
-
                 var error = pProcess.StandardError.ReadToEnd();
+
+                Console.WriteLine($"Compile run {i}. Waiting to finish...");
                 pProcess.WaitForExit();
 
 
