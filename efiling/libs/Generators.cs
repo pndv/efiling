@@ -65,9 +65,9 @@ namespace efiling.libs {
             using var pProcess = new Process {
                 StartInfo = {
                     FileName = exeFilePath,
-                    Arguments = "-verbose file-line-error -interaction=nonstopmode -synctex=1 -enable-installer " +
-                                $"-output-directory={outputDir} -aux-directory={outputDir} {fullTexFilePath}",
-                    UseShellExecute = true,
+                    Arguments = "-verbose -file-line-error -interaction=nonstopmode -synctex=1 -enable-installer " +
+                                $@"-output-directory=""{outputDir}"" -aux-directory=""{outputDir}"" ""{fullTexFilePath}""",
+                    UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
