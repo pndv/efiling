@@ -44,12 +44,12 @@
     </ItemGroup>
 
     <ItemGroup>
+       <Resource Include="resources\states.xml">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </Resource>
         <EmbeddedResource Include="resources\vakalatnama.stg">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </EmbeddedResource>
-        <Resource Include="resources\states.xml">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </Resource>
         <EmbeddedResource Include="resources\xelatex.exe">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </EmbeddedResource>
