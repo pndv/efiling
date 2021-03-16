@@ -60,10 +60,11 @@ namespace efiling.libs {
         private static string compileTex(string texFileName, int compileCount) {
             var fullTexFilePath = Path.GetFullPath(texFileName);
             var outputFilePath = Path.GetFullPath(outputFileRelativePath);
+            var exeFilePath = Path.GetFullPath($"resources{Path.DirectorySeparatorChar}xelatex.exe");
 
             using var pProcess = new Process {
                 StartInfo = {
-                    FileName = "xelatex.exe",
+                    FileName = exeFilePath,
                     Arguments = "-file-line-error -interaction=nonstopmode -synctex=1 " +
                                 "-enable-installer -output-directory=out " + $@"""{fullTexFilePath}""",
                     UseShellExecute = false,
