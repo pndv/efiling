@@ -6,7 +6,7 @@
         <UseWPF>true</UseWPF>
         <StartupObject>efiling.App</StartupObject>
         <Nullable>enable</Nullable>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <Description>Generates PDF file rendered in XeLaTeX for vakalatnama etc</Description>
         <Copyright>Creative Commons</Copyright>
         <PackageProjectUrl>https://github.com/pndv/efiling</PackageProjectUrl>
