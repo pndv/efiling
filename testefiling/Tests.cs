@@ -51,6 +51,8 @@ namespace testefiling {
         public void generatePdf() {
             var output = Generators.generatePdf(data);
 
+            Console.WriteLine($"Output generated: {output}");
+
             Assert.NotNull(output);
             Assert.IsNotEmpty(output);
             Assert.IsTrue(output.Contains(relativeFilePath));
