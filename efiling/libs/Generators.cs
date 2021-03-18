@@ -82,13 +82,12 @@ namespace efiling.libs {
                     Console.Out.WriteLine(e.Message);
                 }
 
-                pProcess.WaitForExit();
 
                 var output = pProcess.StandardOutput.ReadToEnd();
                 var error = pProcess.StandardError.ReadToEnd();
                 Console.WriteLine($"Standard output: {output}");
                 Console.WriteLine($"Standard error: {error}");
-
+                pProcess.WaitForExit();
                 var exitCode = pProcess.ExitCode;
 
                 if (exitCode == 0 || i < compileCount) continue;
