@@ -44,13 +44,45 @@
     </ItemGroup>
 
     <ItemGroup>
-       <Resource Include="resources\states.xml">
+        <EmbeddedResource Include="xelatex\xelatex.exe">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <Resource Include="resources\states.xml">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </Resource>
         <EmbeddedResource Include="resources\vakalatnama.stg">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </EmbeddedResource>
-        <EmbeddedResource Include="resources\xelatex.exe">
+        <None Remove="xelatex\etoc.sty"/>
+        <EmbeddedResource Include="xelatex\etoc.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\fontspec.sty"/>
+        <EmbeddedResource Include="xelatex\fontspec.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\fontspec-xetex.sty"/>
+        <EmbeddedResource Include="xelatex\fontspec-xetex.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\geometry.sty"/>
+        <EmbeddedResource Include="xelatex\geometry.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\parskip.sty"/>
+        <EmbeddedResource Include="xelatex\parskip.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\setspace.sty"/>
+        <EmbeddedResource Include="xelatex\setspace.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\xparse.sty"/>
+        <EmbeddedResource Include="xelatex\xparse.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\xunicode.sty"/>
+        <EmbeddedResource Include="xelatex\xunicode.sty">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </EmbeddedResource>
     </ItemGroup>

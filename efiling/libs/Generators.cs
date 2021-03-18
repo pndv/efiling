@@ -60,7 +60,7 @@ namespace efiling.libs {
         private static string compileTex(string texFileName, int compileCount) {
             var fullTexFilePath = Path.GetFullPath(texFileName);
             var outputFilePath = Path.GetFullPath(outputFileRelativePath);
-            var exeFilePath = Path.GetFullPath($"resources{Path.DirectorySeparatorChar}xelatex.exe");
+            var exeFilePath = Path.GetFullPath($"xelatex{Path.DirectorySeparatorChar}xelatex.exe");
 
             using var pProcess = new Process {
                 StartInfo = {
@@ -85,8 +85,6 @@ namespace efiling.libs {
 
                 var output = pProcess.StandardOutput.ReadToEnd();
                 var error = pProcess.StandardError.ReadToEnd();
-                Console.WriteLine($"Standard output: {output}");
-                Console.WriteLine($"Standard error: {error}");
                 pProcess.WaitForExit();
                 var exitCode = pProcess.ExitCode;
 
