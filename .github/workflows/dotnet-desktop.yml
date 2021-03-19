@@ -80,19 +80,27 @@ jobs:
 
     # Download MikTex Installation
     - name: Download MikTex
-      run: $env:PSPATH Invoke-Webrequest -Uri https://miktex.org/download/win/miktexsetup-x64.zip  -Outfile miktexsetup-x64.zip
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted Invoke-Webrequest -Uri https://miktex.org/download/win/miktexsetup-x64.zip  -Outfile miktexsetup-x64.zip
 
     # Unzip MikTex Installation
     - name: Unzip MikTex
-      run: $env:PSPATH  Expand-Archive miktexsetup-x64.zip
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  Expand-Archive miktexsetup-x64.zip
 
+    # Print Working Directory
+    - name: Print Working Directory
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  Get-Location
+    
+    # List directory contents
+    - name: Download MikTex packages
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted dir
+    
     # Download MikTex packages
     - name: Download MikTex packages
-      run: $env:PSPATH  .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --local-package-repository=C:\miktex download
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --local-package-repository=C:\miktex download
 
     # Install MikTex
     - name: Install MikTex
-      run: $env:PSPATH  .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
 
       # Execute all unit tests in the solution
     - name: Execute unit tests
