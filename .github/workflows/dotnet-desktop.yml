@@ -85,6 +85,10 @@ jobs:
     - name: Unzip MikTex
       run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted Expand-Archive miktexsetup-x64.zip
 
+    # Download MikTex packages
+    - name: Install MikTex
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex download
+
     # Install MikTex
     - name: Install MikTex
       run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
