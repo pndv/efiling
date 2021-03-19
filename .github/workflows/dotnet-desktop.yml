@@ -77,7 +77,19 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 
-    # Execute all unit tests in the solution
+    # Download MikTex Installation
+    - name: Download MikTex
+      run: wget https://miktex.org/download/win/miktexsetup-x64.zip
+
+    # Unzip MikTex Installation
+    - name: Unzip MikTex
+      run: unzip miktexsetup-x64.zip
+
+    # Install MikTex
+    - name: Install MikTex
+      run: miktexsetup_standalone --quiet --package-set=basic --modify-path --use-registry=no install
+
+      # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test --verbosity d
 
