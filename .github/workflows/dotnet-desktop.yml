@@ -91,7 +91,7 @@ jobs:
       run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  Get-Location
     
     # List directory contents
-    - name: Download MikTex packages
+    - name: List directory contents
       run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted dir
     
     # Download MikTex packages
@@ -102,9 +102,13 @@ jobs:
     - name: Install MikTex
       run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
 
+    # Test MikTex installation
+    - name: Install MikTex
+      run: xelatex -version
+
       # Execute all unit tests in the solution
     - name: Execute unit tests
-      run: dotnet test --verbosity d
+      run: dotnet test --verbosity normal
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
