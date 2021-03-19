@@ -87,7 +87,7 @@ jobs:
 
     # Install MikTex
     - name: Install MikTex
-      run: miktexsetup-x64\miktexsetup_standalone --quiet --package-set=basic --modify-path --use-registry=no install
+      run: miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no install
 
       # Execute all unit tests in the solution
     - name: Execute unit tests
