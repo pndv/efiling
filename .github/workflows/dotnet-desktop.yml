@@ -100,11 +100,11 @@ jobs:
 
     # Install MikTex
     - name: Install MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
+      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --verbose --modify-path --use-registry=yes --local-package-repository=C:\miktex install
 
     # Test MikTex installation
-    - name: Install MikTex
-      run: xelatex -version
+    - name: Test MikTex installation
+      run: xelatex.exe -version
 
       # Execute all unit tests in the solution
     - name: Execute unit tests

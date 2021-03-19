@@ -60,7 +60,7 @@ namespace efiling.libs {
         private static string compileTex(string texFileName, int compileCount) {
             var fullTexFilePath = Path.GetFullPath(texFileName);
             var outputFilePath = Path.GetFullPath(outputFileRelativePath);
-            var exeFilePath = Path.GetFullPath($"xelatex{Path.DirectorySeparatorChar}xelatex.exe");
+            var exeFilePath = "xelatex.exe"; //Path.GetFullPath($"xelatex{Path.DirectorySeparatorChar}xelatex.exe");
 
             using var pProcess = new Process {
                 StartInfo = {
