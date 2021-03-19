@@ -60,6 +60,7 @@ jobs:
       Test_Project_Path: testefiling\testefiling.csproj
       Wap_Project_Directory: efiling    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: efiling.csproj  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      PSPATH: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted
 
     steps:
 #    - name: Checkout
@@ -79,19 +80,19 @@ jobs:
 
     # Download MikTex Installation
     - name: Download MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted Invoke-Webrequest -Uri https://miktex.org/download/win/miktexsetup-x64.zip  -Outfile miktexsetup-x64.zip
+      run: $env:PSPATH Invoke-Webrequest -Uri https://miktex.org/download/win/miktexsetup-x64.zip  -Outfile miktexsetup-x64.zip
 
     # Unzip MikTex Installation
     - name: Unzip MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted Expand-Archive miktexsetup-x64.zip
+      run: $env:PSPATH  Expand-Archive miktexsetup-x64.zip
 
     # Download MikTex packages
-    - name: Install MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex download
+    - name: Download MikTex packages
+      run: $env:PSPATH  .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --local-package-repository=C:\miktex download
 
     # Install MikTex
     - name: Install MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
+      run: $env:PSPATH  .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --modify-path --use-registry=no --local-package-repository=C:\miktex install
 
       # Execute all unit tests in the solution
     - name: Execute unit tests
