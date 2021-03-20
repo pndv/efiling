@@ -60,7 +60,8 @@ jobs:
       Test_Project_Path: testefiling\testefiling.csproj
       Wap_Project_Directory: efiling    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: efiling.csproj  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
-      PSPATH: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted
+      PSPATH: "C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted"
+      MIKTEX_PATH: "C:\miktex"
 
     steps:
     - name: Checkout
@@ -77,34 +78,45 @@ jobs:
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
+      
+    # Cache MikTex installation files
+    - name: Cache MikTex installation files
+      id: miktex-cache
+      uses: actions/cache@v2
+      env:
+        cache-name: miktex-cache
+      with: 
+        path: ${{ env.MIKTEX_PATH }}
+        key: "miktexsetup-x64.zip"
 
     # Download MikTex Installation
     - name: Download MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted Invoke-Webrequest -Uri https://miktex.org/download/win/miktexsetup-x64.zip  -Outfile miktexsetup-x64.zip
+      if: steps.miktex-cache.outputs.cache-hit != 'true'
+      run: ${{ env.PSPATH }} Invoke-Webrequest -Uri https://miktex.org/download/win/miktexsetup-x64.zip  -Outfile ${{ env.MIKTEX_PATH }}\miktexsetup-x64.zip
 
     # Unzip MikTex Installation
     - name: Unzip MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  Expand-Archive miktexsetup-x64.zip
+      run: ${{ env.PSPATH }}  Expand-Archive miktexsetup-x64.zip
 
     # Print Working Directory
     - name: Print Working Directory
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  Get-Location
+      run: ${{ env.PSPATH }}  Get-Location
     
     # List directory contents
     - name: List directory contents
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted dir
+      run: ${{ env.PSPATH }} dir
     
     # Download MikTex packages
     - name: Download MikTex packages
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted  .\miktexsetup-x64\miktexsetup_standalone.exe --quiet --package-set=basic --local-package-repository=C:\miktex download
+      run: ${{ env.PSPATH }} .\miktexsetup-x64\miktexsetup_standalone.exe --verbose --modify-path --use-registry=yes --package-set=basic --local-package-repository=${{ env.MIKTEX_PATH }} download
 
     # Install MikTex
     - name: Install MikTex
-      run: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted .\miktexsetup-x64\miktexsetup_standalone.exe --verbose --modify-path --use-registry=yes --local-package-repository=C:\miktex install
+      run: ${{ env.PSPATH }} .\miktexsetup-x64\miktexsetup_standalone.exe --verbose --modify-path --use-registry=yes --local-package-repository=${{ env.MIKTEX_PATH }} install
 
     # Test MikTex installation
     - name: Test MikTex installation
-      run: xelatex.exe -version
+      run: ${{ env.PSPATH }} xelatex.exe -version
 
       # Execute all unit tests in the solution
     - name: Execute unit tests
