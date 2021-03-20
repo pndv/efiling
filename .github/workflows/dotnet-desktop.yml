@@ -60,8 +60,8 @@ jobs:
       Test_Project_Path: testefiling\testefiling.csproj
       Wap_Project_Directory: efiling    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
       Wap_Project_Path: efiling.csproj  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
-      PSPATH: "C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted"
-      MIKTEX_PATH: "C:\miktex"
+      PSPATH: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoLogo -Sta -NoProfile -NonInteractive -ExecutionPolicy Unrestricted
+      MIKTEX_PATH: C:\miktex
 
     steps:
     - name: Checkout
@@ -87,7 +87,7 @@ jobs:
         cache-name: miktex-cache
       with: 
         path: ${{ env.MIKTEX_PATH }}
-        key: "miktexsetup-x64.zip"
+        key: miktexsetup-x64.zip
 
     # Download MikTex Installation
     - name: Download MikTex
