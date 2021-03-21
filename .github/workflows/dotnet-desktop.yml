@@ -108,7 +108,7 @@ jobs:
     
     # List directory contents
     - name: List directory contents
-      run: ${{ env.PSPATH }} dir
+      run: ${{ env.PSPATH }} dir -s ${{ env.MIKTEX_PATH }}
     
     # Download MikTex packages
     - name: Download MikTex packages
