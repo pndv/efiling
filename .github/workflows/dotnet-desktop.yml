@@ -116,7 +116,7 @@ jobs:
     
     # Download MikTex packages
     - name: Download MikTex packages
-      run: ${{ env.PSPATH }} ${{ env.MIKTEX_PATH }}\miktexsetup_standalone.exe --verbose --modify-path --use-registry=yes --package-set=basic --local-package-repository=${{ env.MIKTEX_PATH }} download
+      run: ${{ env.PSPATH }} ${{ env.MIKTEX_PATH }}\miktexsetup_standalone.exe --verbose --modify-path --use-registry=yes --package-set=complete --local-package-repository=${{ env.MIKTEX_PATH }} download
 
     # Install MikTex
     - name: Install MikTex
