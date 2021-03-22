@@ -95,7 +95,7 @@ jobs:
         key: miktexsetup-x64.zip
 
     - name: Cache MikTex installation files
-      id: miktex-cache
+      id: miktex-installation
       uses: actions/cache@v2
       env:
         cache-name: miktex-installation
