@@ -93,6 +93,10 @@ jobs:
         path: ${{ env.MIKTEX_PATH }}
         key: miktexsetup-x64.zip
 
+      # List directory contents
+    - name: List directory contents
+      run: ${{ env.PSPATH }} dir -s ${{ env.MIKTEX_PATH }}
+
     # Download MikTex Installation
     - name: Download MikTex
       if: steps.miktex-cache.outputs.cache-hit != 'true'
