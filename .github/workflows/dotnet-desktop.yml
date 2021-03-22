@@ -104,7 +104,7 @@ jobs:
 
     # Unzip MikTex Installation
     - name: Unzip MikTex
-      run: ${{ env.PSPATH }}  Expand-Archive ${{ env.MIKTEX_PATH }}\miktexsetup-x64.zip
+      run: ${{ env.PSPATH }}  Expand-Archive -Path ${{ env.MIKTEX_PATH }}\miktexsetup-x64.zip -DestinationPath ${{ env.MIKTEX_PATH }}\
 
     # Print Working Directory
     - name: Print Working Directory
