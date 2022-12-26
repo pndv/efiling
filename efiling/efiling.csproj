@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
         <StartupObject>efiling.App</StartupObject>
         <Nullable>enable</Nullable>
@@ -18,8 +17,10 @@
         <Platforms>AnyCPU;x64</Platforms>
         <PackageTags>vakalatnama;formatting</PackageTags>
         <PackageReleaseNotes>Initial version</PackageReleaseNotes>
-		<PublishSingleFile>true</PublishSingleFile>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishSingleFile>true</PublishSingleFile>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

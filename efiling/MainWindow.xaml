@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="Vakalatnama"
-    x:Class="efiling.MainWindow"
+    x:Class="EFiling.MainWindow"
     mc:Ignorable="d"
     Title="Vakalatnama" Margin="1,1,1,1">
 
@@ -44,44 +44,44 @@
                        FontStretch="UltraExpanded" FontWeight="Bold" HorizontalContentAlignment="Center" />
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvTitle" Content="Title" />
+                    <Label Content="Title" />
                     <TextBox x:Name="TxtAdvTitle" TabIndex="0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvFName" Content="First Name" />
+                    <Label Content="First Name" />
                     <TextBox x:Name="TxtAdvFName" TabIndex="1" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvLName" Content="Last Name" />
+                    <Label Content="Last Name" />
                     <TextBox x:Name="TxtAdvLName" TabIndex="2" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvAddr1" Content="Line 1" />
+                    <Label Content="Line 1" />
                     <TextBox x:Name="TxtAdvAddr1" TabIndex="3"  />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvAddr2" Content="Line 2" />
+                    <Label Content="Line 2" />
                     <TextBox x:Name="TxtAdvAddr2" TabIndex="4" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvAddr3" Content="Line 3" />
+                    <Label Content="Line 3" />
                     <TextBox x:Name="TxtAdvAddr3" TabIndex="5" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvCity" Content="City" />
+                    <Label Content="City" />
                     <TextBox x:Name="TxtAdvCity" TabIndex="6"  AutomationProperties.HelpText="District" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvDistrict" Content="District" />
+                    <Label Content="District" />
                     <TextBox x:Name="TxtAdvDistrict" TabIndex="7" AutomationProperties.HelpText="District" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvState" Content="State" />
+                    <Label Content="State" />
                     <ComboBox x:Name="CmbAdvState"
                               SelectedIndex="9"
                               DisplayMemberPath="@Name"
@@ -92,7 +92,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblAdvPinCode" Content="PIN Code" />
+                    <Label Content="PIN Code" />
                     <TextBox x:Name="TxtAdvPinCode" TabIndex="9"  AutomationProperties.HelpText="Pin Code" />
                 </StackPanel>
             </StackPanel>
@@ -116,42 +116,42 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltFName" Content="First Name" />
+                    <Label Content="First Name" />
                     <TextBox x:Name="TxtCltFName" TabIndex="11" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltLName" Content="Last Name" />
+                    <Label Content="Last Name" />
                     <TextBox x:Name="TxtCltLName" TabIndex="12" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltAddr1" Content="Line 1" />
+                    <Label Content="Line 1" />
                     <TextBox x:Name="TxtCltAddr1" TabIndex="13"  />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltAddr2" Content="Line 2" />
+                    <Label Content="Line 2" />
                     <TextBox x:Name="TxtCltAddr2" TabIndex="14" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltAddr3" Content="Line 3" />
+                    <Label Content="Line 3" />
                     <TextBox x:Name="TxtCltAddr3" TabIndex="15" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltCity" Content="City" />
+                    <Label Content="City" />
                     <TextBox x:Name="TxtCltCity" TabIndex="16"  />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltDistrict" Content="District" />
+                    <Label Content="District" />
                     <TextBox x:Name="TxtCltDistrict" TabIndex="17"  />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltState" Content="State" />
+                    <Label Content="State" />
                     <ComboBox x:Name="CmbCltState"
                               SelectedIndex="0"
                               DisplayMemberPath="@Name"
@@ -161,13 +161,13 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCltPinCode" Content="PIN Code" />
+                    <Label Content="PIN Code" />
                     <TextBox x:Name="TxtCltPinCode" TabIndex="19"  />
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Background="#FFB1DFE6">
-                <Label x:Name="LblCaseDetails" Content="Case Details"
+                <Label Content="Case Details"
                        Height="{Binding Height, ElementName=LblAdvDetails}"
                        Width="{Binding Width, ElementName=LblAdvDetails}"
                        Background="#FFA4E4D5"
@@ -179,7 +179,7 @@
                        HorizontalContentAlignment="Center" />
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCtName" Content="Court" />
+                    <Label Content="Court" />
                     <ComboBox x:Name="CmbCtName" Height="28" AllowDrop="True" IsReadOnly="True" TabIndex="20" >
                         <ComboBoxItem Content="Supreme Court Of India" IsSelected="True" />
                         <ComboBoxItem Content="Delhi High Court" />
@@ -187,12 +187,12 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblJurisdiction" Content="Jurisdiction" />
+                    <Label Content="Jurisdiction" />
                     <TextBox x:Name="TxtJurisdiction" TabIndex="21" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCaseType" Content="Case Type" />
+                    <Label Content="Case Type" />
                     <TextBox x:Name="TxtCaseType"
                              AutomationProperties.HelpText="Case Type"
                              ToolTip="Case Type (Writ, SLP etc)" 
@@ -200,15 +200,15 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblCaseNo1" Content="Case No." />
+                    <Label Content="Case No." />
                     <TextBox x:Name="TxtCaseNo1" Width="75" TabIndex="23" />
 
-                    <Label x:Name="LblCaseNo2" Content="Of" Width="30" />
+                    <Label Content="Of" Width="30" />
                     <TextBox x:Name="TxtCaseNo2" Width="75" TabIndex="24" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblFilingDate" Content="Filing Date" />
+                    <Label Content="Filing Date" />
                     <DatePicker x:Name="DtFilingDate" FirstDayOfWeek="Monday"
                                 SelectedDateFormat="Long"
                                 ToolTip="Select filing date of the case"
@@ -218,19 +218,19 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblPetitioner" Content="Petitioner" />
+                    <Label Content="Petitioner" />
                     <TextBox x:Name="TxtPetitioner" TabIndex="26" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="LblRespondent" Content="Respondent" />
+                    <Label Content="Respondent" />
                     <TextBox x:Name="TxtRespondent" TabIndex="27" />
                 </StackPanel>
 
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="BtnGenerate" Content="Generate"
+            <Button Content="Generate"
                     IsDefault="True" Click="btnGenerate_Click" Height="70" Width="142" TabIndex="28"  IsTabStop="True"/>
             <TextBox x:Name="TxtBlkOutputMessage" Height="70" Width="1068" Margin="15,0,0,0" IsReadOnly="True" />
         </StackPanel>
