@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
         <StartupObject>efiling.App</StartupObject>
         <Nullable>enable</Nullable>
@@ -18,12 +17,14 @@
         <Platforms>AnyCPU;x64</Platforms>
         <PackageTags>vakalatnama;formatting</PackageTags>
         <PackageReleaseNotes>Initial version</PackageReleaseNotes>
-		<PublishSingleFile>true</PublishSingleFile>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishSingleFile>true</PublishSingleFile>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-      <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -31,7 +32,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-      <PlatformTarget>x64</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -40,34 +41,66 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="StringTemplate4" Version="4.0.8" />
+        <PackageReference Include="StringTemplate4" Version="4.0.8"/>
     </ItemGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="xelatex\xelatex.exe">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
         <Resource Include="resources\states.xml">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </Resource>
         <EmbeddedResource Include="resources\vakalatnama.stg">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </EmbeddedResource>
-        <EmbeddedResource Include="resources\xelatex.exe">
+        <None Remove="xelatex\etoc.sty"/>
+        <EmbeddedResource Include="xelatex\etoc.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\fontspec.sty"/>
+        <EmbeddedResource Include="xelatex\fontspec.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\fontspec-xetex.sty"/>
+        <EmbeddedResource Include="xelatex\fontspec-xetex.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\geometry.sty"/>
+        <EmbeddedResource Include="xelatex\geometry.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\parskip.sty"/>
+        <EmbeddedResource Include="xelatex\parskip.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\setspace.sty"/>
+        <EmbeddedResource Include="xelatex\setspace.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\xparse.sty"/>
+        <EmbeddedResource Include="xelatex\xparse.sty">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </EmbeddedResource>
+        <None Remove="xelatex\xunicode.sty"/>
+        <EmbeddedResource Include="xelatex\xunicode.sty">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Properties\Resources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Properties\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Properties\Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
 </Project>

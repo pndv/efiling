@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace efiling.Properties {
+namespace EFiling.Properties {
     using System;
     
     
