@@ -1,0 +1,185 @@
+<#@ template language="C#" #>
+<#@ output extension=".tex" encoding="utf-8"#>
+<#@ assembly name="$(TargetPath)"#>
+<#@ import namespace="Model" #>
+
+
+<#
+    string GetCaseTitle() {
+        return @"
+{
+\centering
+\textsc{In the " + courtName + @"}\\
+\textsc{" + jurisdiction + @"} \\
+\textsc{ " + $"{caseType} {expandedCaseNumber}" + @"} \\
+\par
+}";
+    }
+
+    string GetParties() {
+        return @"
+{
+\centering
+\begin{tabular}{l c r}
+" + petitioner + @" & \ldots & Appellant/Petitioner \vspace*{1ex} \\* 
+\tabularnewline
+\multicolumn{3}{c}{-- \textsc{Between/And} --} \vspace*{1ex} \\* 
+\tabularnewline
+" + respondentName + @" & \ldots & Defendant/Respondent/Opposite Party \tabularnewline
+\end{tabular}
+}";
+    }
+
+    string GetInMatterOf(string page) {
+        return @"
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l c r}
+        \multicolumn{3}{c}{\underline{\textsc{In the matter of:}}}  \tabularnewline
+        \tabularnewline
+        " + petitioner + @" & \ldots & Petitioner \\* 
+        \tabularnewline
+        \multicolumn{3}{c}{-- \textsc{versus} --} \\* 
+        \tabularnewline
+        " + respondentName + @" & \ldots & Respondent \tabularnewline
+    \end{tabular}\label{tab:InMatterOf" + page + @"}
+\end{table}
+";
+    }
+#>
+% Preamble
+\documentclass[14pt, titlepage]{article}
+
+% Packages
+\usepackage{xparse}
+\usepackage[driver=xetex,
+            a4paper,
+            noheadfoot,
+            includeheadfoot,
+            nomarginpar,
+            top=1.5in,
+            bottom=1.5in,
+            left=1.75in,
+            right=1.0in]{geometry}
+\usepackage{xunicode}
+
+% Set font to Times New Roman
+\usepackage{fontspec}
+
+\setmainfont{Times New Roman}
+% line spacing = 1.5
+\usepackage[onehalfspacing]{setspace}
+
+\usepackage[parfill]{parskip}
+
+% Format section title to have numbers in Table of Contents, but not in document
+\newcommand{\secpagebreak}{}
+\usepackage{titlesec}
+\titleformat{\section}{\center \normalfont \bfseries}{}{0pt}{\secpagebreak}
+
+% Format Table of Contents
+\usepackage{etoc}
+\newcommand{\titleoftoc}{\textsc{Index}}
+\newcommand{\mktoc}{
+    % Cover page
+    \begin{center}
+        \etocsetstyle{section} %levelName
+                     {} %start
+                     {\etociffirst{ \\ \hline}{\\ \hline}} %prefix
+                     %should be \etocnumber & \etocname & \etocnumber but I can't get the page numbering correct
+                     {{\etocnumber}  {\etocname}  {\etocnumber} } %contents
+                     {} % end
+        \etocsettocstyle{\section*{\titleoftoc}
+                         \hypersetup{hidelinks}
+                         \begin{tabular}{|c|l|c|}
+                            \hline
+                            \multicolumn{1}{|c|}{\bfseries Si No} & {\bfseries Particulars} & {\bfseries Page} \\ \hline
+                         \end{tabular}
+                        } % before TOC
+                        {} % after TOC
+        
+        \etocglobaldefs
+        \etocsetnexttocdepth{1}
+        \tableofcontents
+    \end{center}
+}
+
+% Make entries in the index table as links
+\usepackage[linktocpage=true]{hyperref}
+
+\newcommand {\mktitle}{
+    % Cover page
+    \thispagestyle{empty}
+<#= GetCaseTitle() #>
+\vspace*{4em}
+<#= GetInMatterOf("cover") #>
+\vspace*{4em}
+\mktoc
+\vspace*{3em}
+\textbf{Advocate for the Respondent: <#= advocateName #>}
+    % Break after each section
+    \renewcommand{\secpagebreak}{\clearpage}
+    
+    %% Set page number and section numbering
+    \setcounter{section}{0}
+    \setcounter{page}{0}
+}
+
+%%%%% Main content
+
+\begin{document}
+
+\mktitle
+
+% Text of Vakalatnama
+\section{Vakalatnama}\label{sec:vakalatnama}
+
+(S.C.R.\ Order IV, Rule 18) \\
+\textsc{In the <#= courtName #>} \\
+Appellate/Original Jurisdiction
+
+
+\begin{center}
+Suit/Appeal No of Petition/Reference Plaintiff <#= caseType #> <#= shortenedCaseNumber#>
+\vspace*{2ex}
+<#= GetParties() #>
+\end{center}
+
+\vspace*{4em}
+
+I, <#= getPersonDetails(data.Respondent, isMultiLine: false) #> do hereby appoint and retain <#= advocateName #>, Advocate of the 
+<#= courtName #> to act and appear for us in the above <#= caseType #> and on our behalf to conduct 
+and prosecute (or defend) the same and all proceedings that may be taken in respect of any application connected with the 
+same or any decree or order passed therein, and to file application for Review, to file and obtain return of documents, 
+and to deposit and receive money in our behalf in the said <#= caseType #> and in applications for Review, 
+and to represent us and to take all necessary steps on our behalf in the above matter. We agree to ratify all acts done 
+by the aforesaid Advocate in pursuance of this authority.
+
+Dated this day of <#= filingDate #>
+
+% Memo of appearance
+\section{Memo of Appearance}\label{sec:memo-of-appearance}
+<#= GetCaseTitle() #> 
+
+\vspace*{4em}
+<#= GetInMatterOf("memo") #>
+\vspace*{4em}
+
+To, \\
+The Registrar, \\
+<#= courtName #>, \\
+New Delhi.
+\newline \newline
+Dear Sir/Madam,
+\newline \newline
+Please enter my appearance on behalf of the respondent <#= respondentName #> in the above-mentioned case.
+\newline \newline
+New Delhi,\newline 
+Yours faithfully,\newline
+\vspace{4ex}
+<#= advocateName #>
+
+Advocate for the respondent <#= advocateName #>\\
+Contact Details are in the accompanying retainer agreement i.e., Vakalatnama
+
+\end{document} 

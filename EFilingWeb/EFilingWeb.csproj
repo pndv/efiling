@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="System.CodeDom" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\Retainer.tt">
+        <LastGenOutput>Retainer.cs</LastGenOutput>
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+      </None>
+      <None Update="Resources\Retainer.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>Retainer.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Retainer.cs">
+        <DependentUpon>Retainer.tt</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>
