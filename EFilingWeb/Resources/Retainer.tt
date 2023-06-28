@@ -1,8 +1,4 @@
 <#@ template language="C#" #>
-<#@ output extension=".tex" encoding="utf-8"#>
-<#@ assembly name="$(TargetPath)"#>
-<#@ import namespace="Model" #>
-
 
 <#
     string GetCaseTitle() {
@@ -78,26 +74,25 @@
 \titleformat{\section}{\center \normalfont \bfseries}{}{0pt}{\secpagebreak}
 
 % Format Table of Contents
-\usepackage{etoc}
 \newcommand{\titleoftoc}{\textsc{Index}}
+
+\usepackage{etoc}
 \newcommand{\mktoc}{
-    % Cover page
     \begin{center}
-        \etocsetstyle{section} %levelName
-                     {} %start
-                     {\etociffirst{ \\ \hline}{\\ \hline}} %prefix
-                     %should be \etocnumber & \etocname & \etocnumber but I can't get the page numbering correct
-                     {{\etocnumber}  {\etocname}  {\etocnumber} } %contents
-                     {} % end
-        \etocsettocstyle{\section*{\titleoftoc}
-                         \hypersetup{hidelinks}
-                         \begin{tabular}{|c|l|c|}
+        \etocsetstyle{section}
+                     {}
+                     {\etociffirst{\\ \hline}{\\ \hline}}
+                     {\etocnumber & \etocname & \etocnumber }
+                     {}
+
+        \etocsettocstyle{
+                            \hypersetup{hidelinks}
+                            \begin{tabular}{|c|l|c|}
+                            \multicolumn{3}{c}{\titleoftoc} \\
                             \hline
-                            \multicolumn{1}{|c|}{\bfseries Si No} & {\bfseries Particulars} & {\bfseries Page} \\ \hline
-                         \end{tabular}
-                        } % before TOC
-                        {} % after TOC
-        
+                            \multicolumn{1}{|c|}{\bfseries Si No} & {\bfseries Particulars} & {\bfseries Page}
+                        }
+                        {\\ \hline\end{tabular}}
         \etocglobaldefs
         \etocsetnexttocdepth{1}
         \tableofcontents
@@ -140,15 +135,15 @@ Appellate/Original Jurisdiction
 
 
 \begin{center}
-Suit/Appeal No of Petition/Reference Plaintiff <#= caseType #> <#= shortenedCaseNumber#>
+Suit/Appeal No of Petition/Reference Plaintiff <#= caseType #> <#= shortenedCaseNumber #>
 \vspace*{2ex}
 <#= GetParties() #>
 \end{center}
 
 \vspace*{4em}
 
-I, <#= getPersonDetails(data.Respondent, isMultiLine: false) #> do hereby appoint and retain <#= advocateName #>, Advocate of the 
-<#= courtName #> to act and appear for us in the above <#= caseType #> and on our behalf to conduct 
+I, <#= getPersonDetails(data.Respondent, isMultiLine: false) #> do hereby appoint and retain <#= advocateName #>, 
+Advocate of the <#= courtName #> to act and appear for us in the above <#= caseType #> and on our behalf to conduct 
 and prosecute (or defend) the same and all proceedings that may be taken in respect of any application connected with the 
 same or any decree or order passed therein, and to file application for Review, to file and obtain return of documents, 
 and to deposit and receive money in our behalf in the said <#= caseType #> and in applications for Review, 
@@ -175,11 +170,11 @@ Dear Sir/Madam,
 Please enter my appearance on behalf of the respondent <#= respondentName #> in the above-mentioned case.
 \newline \newline
 New Delhi,\newline 
-Yours faithfully,\newline
-\vspace{4ex}
-<#= advocateName #>
+Yours faithfully, \\
 
-Advocate for the respondent <#= advocateName #>\\
+\vspace{4em}
+<#= advocateName #> \\
+Advocate for the respondent \\
 Contact Details are in the accompanying retainer agreement i.e., Vakalatnama
 
 \end{document} 

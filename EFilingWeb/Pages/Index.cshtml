@@ -1,0 +1,250 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Generate Retainer Agreement (Vakalatnama) For Supreme Court and High Courts of India</h1>
+</div>
+
+<form method="post">
+<div class="container">
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Information</th>
+        <th>Advocate Details</th>
+        <th>Client Details</th>
+    </tr>
+    </thead>
+    <tr>
+        <td>First Name</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.FirstName"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.FirstName"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Middle Name</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.MiddleName"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.MiddleName"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.LastName"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.LastName"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Organisation Title</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.OrgTitle"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.OrgTitle"/>
+            </div>
+        </td>
+    </tr>
+</table>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Information</th>
+        <th>Advocate Details</th>
+        <th>Client Details</th>
+    </tr>
+    </thead>
+    <div class="row">
+        <div class="col-12">
+            <h5>Address</h5>
+        </div>
+    </div>
+    <tr>
+        <td>Line1</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.Line1"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.Line1"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Line2</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.Line2"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.Line2"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Line3</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.Line3"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.Line3"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>City</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.City"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.City"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>District</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.District"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.District"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>State</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.State"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.State"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Pin Code</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Advocate.Address.PinCode"/>
+            </div>
+        </td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.Respondent.Address.PinCode"/>
+            </div>
+        </td>
+    </tr>
+
+</table>
+
+<div class="row">
+    <div class="col-12">
+        <h5>Case Details</h5>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <td>Petitioner</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.Petitioner"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Court Name</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.CourtName"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Jurisdiction</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.Jurisdiction"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Case Type</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.CaseType"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Case Number Part1</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.CaseNumberPart1"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Case Number Part2</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.CaseNumberPart2"/>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>Filing Date</td>
+        <td>
+            <div class="form-control">
+                <input asp-for="@Model.Data.CaseDetails.FilingDate"/>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<button type="submit" class="btn btn-primary">Generate</button>
+</div>
+</form>

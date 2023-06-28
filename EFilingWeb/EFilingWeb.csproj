@@ -8,30 +8,44 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
+        <PackageReference Include="CorrelationId" Version="3.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="System.CodeDom" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Resources\Retainer.tt">
-        <LastGenOutput>Retainer.cs</LastGenOutput>
-        <Generator>TextTemplatingFilePreprocessor</Generator>
-      </None>
-      <None Update="Resources\Retainer.tt">
-        <Generator>TextTemplatingFilePreprocessor</Generator>
-        <LastGenOutput>Retainer.cs</LastGenOutput>
-      </None>
+        <None Update="Resources\Retainer.tt">
+            <LastGenOutput>Retainer.cs</LastGenOutput>
+            <Generator>TextTemplatingFilePreprocessor</Generator>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="Pages\Error.cshtml" />
+        <AdditionalFiles Include="Pages\Index.cshtml" />
+        <AdditionalFiles Include="Pages\Privacy.cshtml" />
+        <AdditionalFiles Include="Pages\Shared\_Layout.cshtml" />
+        <AdditionalFiles Include="Pages\Shared\_ValidationScriptsPartial.cshtml" />
+        <AdditionalFiles Include="Pages\_ViewImports.cshtml" />
+        <AdditionalFiles Include="Pages\_ViewStart.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Update="Resources\Retainer.cs">
+        <AutoGen>True</AutoGen>
+        <DesignTime>True</DesignTime>
         <DependentUpon>Retainer.tt</DependentUpon>
       </Compile>
     </ItemGroup>

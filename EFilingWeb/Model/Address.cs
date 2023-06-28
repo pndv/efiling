@@ -1,9 +1,11 @@
-﻿namespace EFilingWeb.Model;
+﻿using System.Text.Json.Serialization;
 
-public record Address(string Line1,
-                      string? Line2,
-                      string? Line3,
-                      string City,
-                      string? District,
-                      string State,
-                      int PinCode);
+namespace EFilingWeb.Model;
+
+public record Address([property: JsonPropertyName("line1")] string Line1,
+                      [property: JsonPropertyName("line2")] string? Line2,
+                      [property: JsonPropertyName("line3")] string? Line3,
+                      [property: JsonPropertyName("city")] string City,
+                      [property: JsonPropertyName("district")] string? District,
+                      [property: JsonPropertyName("state")] string State,
+                      [property: JsonPropertyName("pinCode")] string PinCode);

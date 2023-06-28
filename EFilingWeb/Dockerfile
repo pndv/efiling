@@ -1,4 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+RUN apt update -y
+RUN apt install apt-utils -y
+RUN apt install texlive-xetex -y
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443

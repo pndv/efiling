@@ -1,17 +1,15 @@
-﻿namespace EFilingWeb.Model;
+﻿using System.Text.Json.Serialization;
 
-public record CaseDetails(string CaseType,
-                          string CaseNumberPart1,
-                          string CaseNumberPart2,
-                          DateTime FilingDate,
-                          string CourtName,
-                          string Petitioner,
-                          string Jurisdiction) {
-    public string getCaseInfo() {
-        return $"{CaseType}:{CaseNumberPart1}/{CaseNumberPart2}";
-    }
+namespace EFilingWeb.Model;
 
-    public string getFilingDateLongFormat() {
-        return FilingDate.ToLongDateString();
-    }
+public record CaseDetails([property: JsonPropertyName("caseType")] string CaseType,
+                          [property: JsonPropertyName("caseNumberPart1")] string CaseNumberPart1,
+                          [property: JsonPropertyName("caseNumberPart2")] string CaseNumberPart2,
+                          [property: JsonPropertyName("filingDate")] DateTime FilingDate,
+                          [property: JsonPropertyName("courtName")] string CourtName,
+                          [property: JsonPropertyName("petitioner")] string Petitioner,
+                          [property: JsonPropertyName("jurisdiction")] string Jurisdiction) {
+  public string getCaseInfo() {
+    return $"{CaseType}:{CaseNumberPart1}/{CaseNumberPart2}";
+  }
 }

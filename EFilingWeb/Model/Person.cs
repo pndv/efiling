@@ -1,12 +1,13 @@
-﻿namespace EFilingWeb.Model;
+﻿using System.Text.Json.Serialization;
 
-public record Person(string LastName,
-                     string? MiddleName,
-                     string FirstName,
-                     string OrgTitle,
-                     Address Address) {
-    
-    public string GetFullName() {
-        return $"{FirstName} {MiddleName ?? string.Empty} {LastName}";
-    }
+namespace EFilingWeb.Model;
+
+public record Person([property: JsonPropertyName("lastName")] string LastName,
+                     [property: JsonPropertyName("middleName")] string? MiddleName,
+                     [property: JsonPropertyName("firstName")] string FirstName,
+                     [property: JsonPropertyName("orgTitle")] string OrgTitle,
+                     [property: JsonPropertyName("address")] Address Address) {
+  public string getFullName() {
+    return $"{FirstName} {MiddleName ?? string.Empty} {LastName}";
+  }
 }
