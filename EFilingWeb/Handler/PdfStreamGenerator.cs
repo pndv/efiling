@@ -14,7 +14,7 @@ public class PdfStreamGenerator {
     this.logger = logger;
   }
 
-  public async Task<FileStream> generatePdf(RetainerAgreementData data, CancellationToken cancellationToken) {
+  public async Task<(string fileName, FileStream)> generatePdf(RetainerAgreementData data, CancellationToken cancellationToken) {
       if (cancellationToken.IsCancellationRequested) {
         logger.LogCritical("generatePdf: Request cancelled");
         cancellationToken.ThrowIfCancellationRequested();
@@ -36,8 +36,9 @@ public class PdfStreamGenerator {
       logger.LogInformation("generatePdf: Generating file stream for pdf {PdfPath}", pdfFilePath);
       FileStream fs = new(pdfFilePath, FileMode.Open);
       logger.LogInformation("generatePdf: Generated file stream for pdf {PdfPath}", pdfFilePath);
-      
-      return fs;
+
+      String fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + ".pdf";
+      return (fileName, fs);
   }
   
 }

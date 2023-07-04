@@ -30,21 +30,25 @@ public class PdfGenerator {
 
     for (int i = 1; i <= compileCount; i++) {
       using Process texProcess = getTexProcess(xelatexPath, outputDir, fullTexFilePath);
-
+      
       try {
-        texProcess.Start();
+        if (!texProcess.Start()) {
+          logger.LogError("compileTex ERROR: failed to start the XeLaTeX process");
+          throw new Exception("compileTex: Failed to start the XeLaTeX process");
+        }
       } catch (Exception e) {
         logger.LogError(e, "Error compiling file {FileName}. Message: {ExceptionMessage}", fileNameWithoutExtension,
                         e.Message);
         throw;
       }
 
-
       string output = await texProcess.StandardOutput.ReadToEndAsync(cancellationToken);
       string error = await texProcess.StandardError.ReadToEndAsync(cancellationToken);
-      int exitCode = texProcess.ExitCode;
+      
+      logger.LogInformation("compileTex: Waiting for the compilation to finish");
       await texProcess.WaitForExitAsync(cancellationToken);
 
+      int exitCode = texProcess.ExitCode;
       if (exitCode == 0 || i < compileCount) {
         logger.LogInformation("Compile iteration {IterationCount} completed without error. Output message: {Output}",
                               i, output);

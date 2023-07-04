@@ -2,6 +2,7 @@
 
 using EFilingWeb.Controllers;
 using EFilingWeb.Handler;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -26,9 +27,13 @@ public class RetainerControllerTest {
     PdfStreamGenerator psg = new(tg, pg, mockpdfStreamGenLogger.Object);
     RetainerController controller = new(tg, pg, psg, mockRetainerLogger.Object);
 
-    ActionResult<Stream> result = await controller.createRetainer(data, cancellationToken);
-    
-    Assert.NotNull(result.Value);
-    Assert.True(result.Value.Length > 0);
+    Results<BadRequest,FileStreamHttpResult> result = await controller.createRetainer(data, cancellationToken);
+
+    Assert.NotNull(result.Result);
+    Assert.True(result.Result is FileStreamHttpResult);
+
+    FileStreamHttpResult? fileResult = result.Result as FileStreamHttpResult;
+    Assert.NotNull(fileResult);
+    Assert.EndsWith("pdf", fileResult.FileDownloadName);
   }
 }

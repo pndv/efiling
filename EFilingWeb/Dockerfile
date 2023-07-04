@@ -1,10 +1,11 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-RUN apt update -y
-RUN apt install apt-utils -y
-RUN apt install texlive-xetex -y
+﻿#FROM ghcr.io/pndv/tex-docker/texlive-dotnet:2.0 as base
+FROM texondotnet:latest as base
+
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
+
+#####################################
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -14,8 +15,12 @@ COPY . .
 WORKDIR "/src/EFilingWeb"
 RUN dotnet build "EFilingWeb.csproj" -c Release -o /app/build
 
+#####################################
+
 FROM build AS publish
 RUN dotnet publish "EFilingWeb.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+#####################################
 
 FROM base AS final
 WORKDIR /app

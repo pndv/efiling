@@ -3,6 +3,7 @@
 using System.Net.Mime;
 using EFilingWeb.Handler;
 using EFilingWeb.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 #endregion
@@ -28,14 +29,12 @@ public class RetainerController : Controller {
   }
 
   [HttpPost]
-  [ProducesResponseType(StatusCodes.Status200OK)]
-  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  [Produces(contentType: MediaTypeNames.Application.Octet, Type = typeof(Stream))]
-  public async Task<ActionResult<Stream>> createRetainer([FromBody] RetainerAgreementData data,
-                                                         CancellationToken cancellationToken) {
+  public async Task<Results<BadRequest, FileStreamHttpResult>> createRetainer([FromBody] RetainerAgreementData data,
+                                                                              CancellationToken cancellationToken) {
 
-    FileStream fs = await pdfStreamGenerator.generatePdf(data, cancellationToken);
+    (string pdfFileName, FileStream fs) = await pdfStreamGenerator.generatePdf(data, cancellationToken);
     await fs.FlushAsync(cancellationToken);
-    return new FileStreamResult(fs, MediaTypeNames.Application.Octet);
+    FileStreamResult result = new(fs, MediaTypeNames.Application.Pdf);
+    return TypedResults.Stream(fs, contentType: MediaTypeNames.Application.Pdf, fileDownloadName: pdfFileName);
   }
 }
