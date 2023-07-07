@@ -1,5 +1,4 @@
-﻿#FROM ghcr.io/pndv/tex-docker/texlive-dotnet:2.0 as base
-FROM texondotnet:latest as base
+﻿FROM ghcr.io/pndv/tex-docker/texlive-dotnet:latest as base
 
 WORKDIR /app
 EXPOSE 80
@@ -18,7 +17,7 @@ RUN dotnet build "EFilingWeb.csproj" -c Release -o /app/build
 #####################################
 
 FROM build AS publish
-RUN dotnet publish "EFilingWeb.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "EFilingWeb.csproj" -c Release -o /app/publish
 
 #####################################
 

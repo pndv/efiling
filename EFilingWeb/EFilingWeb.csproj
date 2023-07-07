@@ -8,26 +8,24 @@
         <UserSecretsId>d0c1fd49-64a2-4fac-b8cd-0baf51d9815c</UserSecretsId>
         <IsPackable>true</IsPackable>
         <NeutralLanguage>en</NeutralLanguage>
+        <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DebugType>full</DebugType>
+        <DebugType>full</DebugType>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-      <PlatformTarget>x64</PlatformTarget>
-      <DebugSymbols>false</DebugSymbols>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <DebugSymbols>false</DebugSymbols>
+        <PublishReadyToRun>true</PublishReadyToRun>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="CorrelationId" Version="3.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="System.CodeDom" Version="7.0.0" />
     </ItemGroup>
@@ -56,11 +54,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\Retainer.cs">
-        <AutoGen>True</AutoGen>
-        <DesignTime>True</DesignTime>
-        <DependentUpon>Retainer.tt</DependentUpon>
-      </Compile>
+        <Compile Update="Resources\Retainer.cs">
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+            <DependentUpon>Retainer.tt</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 </Project>
