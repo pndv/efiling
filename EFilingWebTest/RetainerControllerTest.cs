@@ -25,7 +25,7 @@ public class RetainerControllerTest {
     TexGenerator tg = new(mockTexLogger.Object);
     PdfGenerator pg = new(mockPdfLogger.Object);
     PdfStreamGenerator psg = new(tg, pg, mockpdfStreamGenLogger.Object);
-    RetainerController controller = new(tg, pg, psg, mockRetainerLogger.Object);
+    RetainerController controller = new(psg, mockRetainerLogger.Object);
 
     Results<BadRequest,FileStreamHttpResult> result = await controller.createRetainer(data, cancellationToken);
 

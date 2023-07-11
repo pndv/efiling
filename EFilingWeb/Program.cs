@@ -1,4 +1,5 @@
 using EFilingWeb.Handler;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,7 @@ builder.Logging.AddConsole(b => b.LogToStandardErrorThreshold = LogLevel.Trace);
 IServiceCollection services = builder.Services;
 
 // Add services to the container.
-services.AddControllers()
+services.AddControllers(options => options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider()))
         .ConfigureApiBehaviorOptions(x => {
                                        x.SuppressMapClientErrors = true;
                                      });

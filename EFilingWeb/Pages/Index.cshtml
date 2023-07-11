@@ -2,14 +2,15 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Retainer Agreement";
 }
 
 <div class="text-center">
     <h1 class="display-4">Generate Retainer Agreement (Vakalatnama) For Supreme Court and High Courts of India</h1>
 </div>
 
-<form method="post">
+<form asp-controller="Retainer" method="post">
+<div asp-validation-summary="All" class="text-danger"></div>
 <div class="container">
 
 <table class="table">
@@ -21,15 +22,17 @@
     </tr>
     </thead>
     <tr>
-        <td>First Name</td>
+        <td><label asp-for="Data.Advocate.FirstName" class="col-form-label">First Name</label></td>
         <td>
             <div class="form-control">
                 <input asp-for="@Model.Data.Advocate.FirstName"/>
+                <span asp-validation-for="Data.Advocate.FirstName" class="text-danger"></span>
             </div>
         </td>
         <td>
             <div class="form-control">
                 <input asp-for="@Model.Data.Respondent.FirstName"/>
+                <span asp-validation-for="Data.Respondent.FirstName" class="text-danger"></span>
             </div>
         </td>
     </tr>
@@ -51,11 +54,14 @@
         <td>
             <div class="form-control">
                 <input asp-for="@Model.Data.Advocate.LastName"/>
+                <span asp-validation-for="Data.Advocate.LastName" class="text-danger"></span>
+
             </div>
         </td>
         <td>
             <div class="form-control">
                 <input asp-for="@Model.Data.Respondent.LastName"/>
+                <span asp-validation-for="Data.Respondent.LastName" class="text-danger"></span>
             </div>
         </td>
     </tr>
@@ -91,11 +97,13 @@
         <td>
             <div class="form-control">
                 <input asp-for="@Model.Data.Advocate.Address.Line1"/>
+                <span asp-validation-for="Data.Advocate.Address.Line1" class="text-danger"></span>
             </div>
         </td>
         <td>
             <div class="form-control">
                 <input asp-for="@Model.Data.Respondent.Address.Line1"/>
+                <span asp-validation-for="Data.Respondent.Address.Line1" class="text-danger"></span>
             </div>
         </td>
     </tr>
@@ -238,9 +246,7 @@
     <tr>
         <td>Filing Date</td>
         <td>
-            <div class="form-control">
-                <input asp-for="@Model.Data.CaseDetails.FilingDate"/>
-            </div>
+            <input asp-for="@Model.Data.CaseDetails.FilingDate" class="form-control"/>
         </td>
     </tr>
 </table>
@@ -248,3 +254,8 @@
 <button type="submit" class="btn btn-primary">Generate</button>
 </div>
 </form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

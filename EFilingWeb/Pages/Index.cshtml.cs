@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 using EFilingWeb.Handler;
 using EFilingWeb.Model;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -11,7 +12,9 @@ public class IndexModel : PageModel {
   private readonly ILogger<IndexModel> logger;
   private readonly PdfStreamGenerator pdfStreamGenerator;
 
-  [BindProperty] public RetainerAgreementData Data { get; set; }
+  [BindProperty]
+  [Required]
+  public RetainerAgreementData Data { get; set; }
 
 
   public IndexModel(ILogger<IndexModel> logger, PdfStreamGenerator pdfStreamGenerator) {
@@ -33,8 +36,9 @@ public class IndexModel : PageModel {
 
     logger.LogInformation("Received response with code {@Result}", fileStream);
 
-    FileStreamResult result = new(fileStream, contentType: MediaTypeNames.Application.Pdf);
-    result.FileDownloadName = fileName;
+    FileStreamResult result = new(fileStream, contentType: MediaTypeNames.Application.Pdf) {
+      FileDownloadName = fileName
+    };
     return result;
   }
 

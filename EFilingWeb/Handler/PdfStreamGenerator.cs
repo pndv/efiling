@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using EFilingWeb.Model;
 
 namespace EFilingWeb.Handler; 
@@ -7,7 +8,7 @@ public class PdfStreamGenerator {
   private readonly ILogger<PdfStreamGenerator> logger;
   private readonly TexGenerator tex;
   private readonly PdfGenerator pdf;
-  
+
   public PdfStreamGenerator(TexGenerator tex, PdfGenerator pdf, ILogger<PdfStreamGenerator> logger) {
     this.tex = tex;
     this.pdf = pdf;
@@ -18,6 +19,14 @@ public class PdfStreamGenerator {
       if (cancellationToken.IsCancellationRequested) {
         logger.LogCritical("generatePdf: Request cancelled");
         cancellationToken.ThrowIfCancellationRequested();
+      }
+
+      ValidationContext vc = new(data);
+      List<ValidationResult> validationResults = new();
+      bool isValid = Validator.TryValidateObject(data, vc, validationResults, validateAllProperties: true);
+      if (!isValid) {
+        string fields = string.Join("," , validationResults.Select(r => r.MemberNames));
+        throw new ValidationException($"Validation failed for field(s): {fields}");
       }
 
       logger.LogInformation("START generatePdf: Retainer Agreement generation for data {@Data}", data);

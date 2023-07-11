@@ -13,17 +13,11 @@ namespace EFilingWeb.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class RetainerController : Controller {
-  private readonly TexGenerator tex;
-  private readonly PdfGenerator pdf;
   private readonly PdfStreamGenerator pdfStreamGenerator;
   private readonly ILogger<RetainerController> logger;
 
-  public RetainerController(TexGenerator texGenerator,
-                            PdfGenerator pdfGenerator,
-                            PdfStreamGenerator pdfStreamGenerator,
+  public RetainerController(PdfStreamGenerator pdfStreamGenerator,
                             ILogger<RetainerController> logger) {
-    tex = texGenerator;
-    pdf = pdfGenerator;
     this.logger = logger;
     this.pdfStreamGenerator = pdfStreamGenerator;
   }
@@ -32,9 +26,15 @@ public class RetainerController : Controller {
   public async Task<Results<BadRequest, FileStreamHttpResult>> createRetainer([FromBody] RetainerAgreementData data,
                                                                               CancellationToken cancellationToken) {
 
+    logger.BeginScope(data);
+    
+    logger.LogInformation("Generating Pdf file for case {@CaseDetails}", data.CaseDetails);
     (string pdfFileName, FileStream fs) = await pdfStreamGenerator.generatePdf(data, cancellationToken);
+    
+    logger.LogInformation("Flushing the stream for file {FileName}", pdfFileName);
     await fs.FlushAsync(cancellationToken);
-    FileStreamResult result = new(fs, MediaTypeNames.Application.Pdf);
+    
+    logger.LogInformation("Return the generated pdf file {FileName}", pdfFileName);
     return TypedResults.Stream(fs, contentType: MediaTypeNames.Application.Pdf, fileDownloadName: pdfFileName);
   }
 }
