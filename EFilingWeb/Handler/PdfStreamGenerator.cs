@@ -46,7 +46,7 @@ public class PdfStreamGenerator {
       FileStream fs = new(pdfFilePath, FileMode.Open);
       logger.LogInformation("generatePdf: Generated file stream for pdf {PdfPath}", pdfFilePath);
 
-      String fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + ".pdf";
+      string fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + ".pdf";
       return (fileName, fs);
   }
   
